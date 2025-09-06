@@ -1,16 +1,6 @@
-variable "storage_accounts" {
-  type = map(object({
-    resource_group_name      = string
-    location                 = string
-    account_tier             = string
-    account_replication_type = string
-  }))
-  description = "A map of storage accounts with their configurations."
-}
-
 variable "storage_containers" {
   type = map(object({
-    storage_account_name = string
+#    storage_account_name = string
     container_access_type = string
     role_assignments = map(object({
       role_definition_name = string
@@ -22,14 +12,20 @@ variable "storage_containers" {
 
 variable "file_shares" {
   type = map(object({
-    storage_account_name = string
+ #   storage_account_name = string
+    fileshare_name = string
     quota = number
-    role_assignments = map(object({
-      role_definition_name = string
-      principal_id         = string
-    }))
+ #   role_assignments = map(object({
+ #     role_definition_name = string
+ #     principal_id         = string
+ #   }))
   }))
   description = "A map of file shares with their configurations and role assignments."
+}
+
+variable "storage_account_name" {
+  description = "Name des Storage Accounts"
+  type        = string
 }
 
 variable "resource_group_name" {

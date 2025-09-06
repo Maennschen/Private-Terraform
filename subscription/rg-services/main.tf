@@ -8,21 +8,15 @@ module "rg-services" {
 module "sa00services" {
   source = "../../modules/storage_account"
 
-  resource_group_name = module.rg-services.name
-  location            = module.rg-services.location
-
-  storage_accounts = {
-    sa00services = {
-      resource_group_name      = module.rg-services.name
-      location                 = module.rg-services.location
-      account_tier             = "Standard"
-      account_replication_type = "LRS"
-    }
-  }
+  storage_account_name     = "sa00services"
+  resource_group_name      = module.rg-services.name
+  location                 = module.rg-services.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
 
   storage_containers = {
     sc00terraform = {
-      storage_account_name  = "sa00services"
+      container_name = "sc00terraform"
       container_access_type = "private"
       role_assignments = {
         rule1 = {
@@ -34,16 +28,16 @@ module "sa00services" {
   }
 
   file_shares = {
-    fs00servicestore = {
-      storage_account_name  = "sa00services"
+    #fs00servicestore = {
+      fileshare_name = "fs00servicestore"
       quota                 = 5
-      role_assignments = {
-        rule1 = {
-          role_definition_name = "Storage File Data SMB Share Contributor"
-          principal_id         = var.global_admin_object_id
-        }
-      }
-    }
+      # role_assignments = {
+      #   rule1 = {
+      #     role_definition_name = "Storage File Data SMB Share Contributor"
+      #     principal_id         = var.global_admin_object_id
+      #   }
+      # }
+    #}
   }
 }
 
@@ -58,7 +52,3 @@ module "keyvault-dmn-tf-test" {
   sku_name               = "standard"
   global_admin_object_id = var.global_admin_object_id
 }
-
-# "sc00terraform"
-# "fs00servicestore"
-# "sa00services"

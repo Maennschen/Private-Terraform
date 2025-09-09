@@ -14,31 +14,27 @@ module "sa00services" {
   account_tier             = "Standard"
   account_replication_type = "LRS"
 
-  storage_containers = {
-    sc00terraform = {
-      container_name = "sc00terraform"
-      container_access_type = "private"
-      role_assignments = {
-        rule1 = {
-          role_definition_name = "Storage Blob Terraform State"
-          principal_id         = var.global_admin_object_id
-        }
-      }
-    } 
-  }
+  file_shares = [
+    {
+      name        = "fs00services"
+      quota       = 5
+      access_tier = "Hot"
+    }
+  ]
 
-  file_shares = {
-    #fs00servicestore = {
-      fileshare_name = "fs00servicestore"
-      quota                 = 5
-      # role_assignments = {
-      #   rule1 = {
-      #     role_definition_name = "Storage File Data SMB Share Contributor"
-      #     principal_id         = var.global_admin_object_id
-      #   }
-      # }
-    #}
-  }
+  storage_containers = [
+    {
+      name                  = "sc00terraform"
+      container_access_type = "private"
+    }
+  ]
+}
+
+resource "azurerm_management_lock" "tfstate_container_lock" {
+  name       = "TerraformStateProtection"
+  scope      = module.sa00services.storage_container_ids[0]
+  lock_level = "CanNotDelete"
+  notes      = "Schützt den Terraform State-Container vor versehentlicher Löschung."
 }
 
 module "keyvault-dmn-tf-test" {

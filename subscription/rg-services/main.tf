@@ -67,7 +67,6 @@ module "vnet00-services" {
   }
 }
 
-
 module "tst01-lvm" {
   source = "../../modules/vm_linux"
 
@@ -77,3 +76,23 @@ module "tst01-lvm" {
 
   vnet = module.vnet00-services.subnet_ids.subnet1
 }
+
+# module "tst02-lvm" {
+#   source = "../../modules/vm_linux"
+
+#   vmname              = "tst02-lvm"
+#   resource_group_name = module.rg-services.name
+#   location            = module.rg-services.location
+
+#   vnet = module.vnet00-services.subnet_ids.subnet1
+# }
+
+# module "tst03-lvm" {
+#   source = "../../modules/vm_linux"
+
+#   vmname              = "tst03-lvm"
+#   resource_group_name = module.rg-services.name
+#   location            = module.rg-services.location
+
+#   vnet = module.vnet00-services.subnet_ids.subnet2
+# }

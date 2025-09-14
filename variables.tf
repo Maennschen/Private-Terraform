@@ -2,10 +2,10 @@ variable "subscription_id" {
   default = null
 }
 
-variable "client_id" {
+variable "tenant_id" {
   default = null
 }
 
-variable "tenant_id" {
+variable "global_admin_object_id" {
   default = null
 }

@@ -32,7 +32,7 @@ module "sa00services" {
 
 resource "azurerm_management_lock" "tfstate_container_lock" {
   name       = "TerraformStateProtection"
-  scope      = module.sa00services.storage_container_ids[0]
+  scope = module.sa00services.storage_container_ids.sc00terraform
   lock_level = "CanNotDelete"
   notes      = "Schützt den Terraform State-Container vor versehentlicher Löschung."
 }
@@ -43,6 +43,8 @@ module "keyvault-dmn-tf-test" {
   key_vault_name      = "keyvault-dmn-tf-test"
   resource_group_name = module.rg-services.name
   location            = module.rg-services.location
+
+  ip = "194.126.177.146/32"
 
   tenant_id              = var.tenant_id
   sku_name               = "standard"
@@ -76,23 +78,3 @@ module "tst01-lvm" {
 
   vnet = module.vnet00-services.subnet_ids.subnet1
 }
-
-# module "tst02-lvm" {
-#   source = "../../modules/vm_linux"
-
-#   vmname              = "tst02-lvm"
-#   resource_group_name = module.rg-services.name
-#   location            = module.rg-services.location
-
-#   vnet = module.vnet00-services.subnet_ids.subnet1
-# }
-
-# module "tst03-lvm" {
-#   source = "../../modules/vm_linux"
-
-#   vmname              = "tst03-lvm"
-#   resource_group_name = module.rg-services.name
-#   location            = module.rg-services.location
-
-#   vnet = module.vnet00-services.subnet_ids.subnet2
-# }

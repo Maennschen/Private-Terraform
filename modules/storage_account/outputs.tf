@@ -20,5 +20,5 @@ output "storage_container_names" {
 
 output "storage_container_ids" {
   description = "IDs der erstellten Storage Container."
-  value       = [for container in azurerm_storage_container.this : container.id]
+  value       = { for name, container in azurerm_storage_container.this : name => container.id }
 }

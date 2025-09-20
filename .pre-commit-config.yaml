@@ -1,0 +1,15 @@
+repos: 
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.100.0
+    hooks:
+      - id: terraform_fmt
+      - id: terraform_validate
+      # - id: terraform_tflint
+      #   args:
+      #     - '--args=--config=/home/daniel-wsl/git/Private-Terraform/.tflint.hcl'
+      # - id: terraform_checkov
+      #   args:
+      #     - '--args=--framework terraform --download-external-modules true'
+      # - id: terraform_docs
+      #   args:
+      #     - --args='markdown table --output-file README.md "/home/daniel-wsl/git/Private-Terraform/docs" --lockfile false'

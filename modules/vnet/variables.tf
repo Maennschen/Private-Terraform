@@ -1,16 +1,16 @@
 variable "resource_group_name" {
   description = "Ressourcen Gruppe für Virtual Network"
-  type = string
+  type        = string
 }
 
 variable "vnet_name" {
   description = "Name für das Virtuelle Netzwerk"
-  type = string
+  type        = string
 }
 
 variable "location" {
   description = "Datacenter Standort für das Virtuelle Netzwerk"
-  type = string
+  type        = string
 }
 
 variable "vnet_address_space" {

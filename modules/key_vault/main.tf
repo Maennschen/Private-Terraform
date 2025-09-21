@@ -8,8 +8,8 @@ resource "azurerm_key_vault" "key_vault" {
 
   network_acls {
     default_action = "Deny"
-    ip_rules = [var.ip]
-    bypass = "AzureServices"
+    ip_rules       = [var.ip]
+    bypass         = "AzureServices"
   }
 
   access_policy {
@@ -24,8 +24,8 @@ resource "azurerm_key_vault" "key_vault" {
       "Get", "List", "Set", "Delete", "Recover", "Restore", "Backup"
     ]
 
-    certificate_permissions = [ 
+    certificate_permissions = [
       "Get", "List", "Update", "Create", "Import", "Delete", "Purge"
-     ]
+    ]
   }
 }

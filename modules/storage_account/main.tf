@@ -1,4 +1,4 @@
-resource "azurerm_storage_account" "this" {
+resource "azurerm_storage_account" "storage_account" {
   name                     = var.storage_account_name
   resource_group_name      = var.resource_group_name
   location                 = var.location
@@ -7,23 +7,23 @@ resource "azurerm_storage_account" "this" {
   tags                     = var.tags
 }
 
-resource "azurerm_storage_share" "this" {
+resource "azurerm_storage_share" "file_share" {
   for_each = {
     for share in var.file_shares : share.name => share
   }
 
   name               = each.value.name
-  storage_account_id = azurerm_storage_account.this.id
+  storage_account_id = azurerm_storage_account.storage_account.id
   quota              = each.value.quota
   access_tier        = each.value.access_tier
 }
 
-resource "azurerm_storage_container" "this" {
+resource "azurerm_storage_container" "storage_container" {
   for_each = {
     for container in var.storage_containers : container.name => container
   }
 
   name                  = each.value.name
-  storage_account_id   = azurerm_storage_account.this.id
+  storage_account_id    = azurerm_storage_account.storage_account.id
   container_access_type = each.value.container_access_type
 }

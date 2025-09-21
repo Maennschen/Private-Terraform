@@ -32,7 +32,7 @@ module "sa00services" {
 
 resource "azurerm_management_lock" "tfstate_container_lock" {
   name       = "TerraformStateProtection"
-  scope = module.sa00services.storage_container_ids.sc00terraform
+  scope      = module.sa00services.storage_container_ids.sc00terraform
   lock_level = "CanNotDelete"
   notes      = "Schützt den Terraform State-Container vor versehentlicher Löschung."
 }
@@ -58,7 +58,7 @@ module "vnet00-services" {
   location            = module.rg-services.location
   vnet_name           = "vnet00-services"
   vnet_address_space  = ["10.0.0.0/16"]
-  
+
   subnets = {
     "subnet1" = {
       address_prefixes = ["10.0.1.0/24"]

@@ -1,0 +1,466 @@
+       _               _
+   ___| |__   ___  ___| | _______   __
+  / __| '_ \ / _ \/ __| |/ / _ \ \ / /
+ | (__| | | |  __/ (__|   < (_) \ V /
+  \___|_| |_|\___|\___|_|\_\___/ \_/
+
+By Prisma Cloud | version: 3.2.471 
+
+terraform scan results:
+
+Check: CKV_AZURE_190: "Ensure that Storage blobs restrict public access"
+        FAILED for resource: module.subscription.module.services.module.sa00services.azurerm_storage_account.storage_account
+        File: /modules/storage_account/main.tf:1-8
+        Calling File: /subscription/rg-services/main.tf:8-31
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/azr-networking-190
+
+                1 | resource "azurerm_storage_account" "storage_account" {
+                2 |   name                     = var.storage_account_name
+                3 |   resource_group_name      = var.resource_group_name
+                4 |   location                 = var.location
+                5 |   account_tier             = var.account_tier
+                6 |   account_replication_type = var.account_replication_type
+                7 |   tags                     = var.tags
+                8 | }
+
+Check: CKV_AZURE_59: "Ensure that Storage accounts disallow public access"
+        FAILED for resource: module.subscription.module.services.module.sa00services.azurerm_storage_account.storage_account
+        File: /modules/storage_account/main.tf:1-8
+        Calling File: /subscription/rg-services/main.tf:8-31
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/ensure-that-storage-accounts-disallow-public-access
+
+                1 | resource "azurerm_storage_account" "storage_account" {
+                2 |   name                     = var.storage_account_name
+                3 |   resource_group_name      = var.resource_group_name
+                4 |   location                 = var.location
+                5 |   account_tier             = var.account_tier
+                6 |   account_replication_type = var.account_replication_type
+                7 |   tags                     = var.tags
+                8 | }
+
+Check: CKV_AZURE_33: "Ensure Storage logging is enabled for Queue service for read, write and delete requests"
+        FAILED for resource: module.subscription.module.services.module.sa00services.azurerm_storage_account.storage_account
+        File: /modules/storage_account/main.tf:1-8
+        Calling File: /subscription/rg-services/main.tf:8-31
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-logging-policies/enable-requests-on-storage-logging-for-queue-service
+
+                1 | resource "azurerm_storage_account" "storage_account" {
+                2 |   name                     = var.storage_account_name
+                3 |   resource_group_name      = var.resource_group_name
+                4 |   location                 = var.location
+                5 |   account_tier             = var.account_tier
+                6 |   account_replication_type = var.account_replication_type
+                7 |   tags                     = var.tags
+                8 | }
+
+Check: CKV_AZURE_206: "Ensure that Storage Accounts use replication"
+        FAILED for resource: module.subscription.module.services.module.sa00services.azurerm_storage_account.storage_account
+        File: /modules/storage_account/main.tf:1-8
+        Calling File: /subscription/rg-services/main.tf:8-31
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/azr-general-206
+
+                1 | resource "azurerm_storage_account" "storage_account" {
+                2 |   name                     = var.storage_account_name
+                3 |   resource_group_name      = var.resource_group_name
+                4 |   location                 = var.location
+                5 |   account_tier             = var.account_tier
+                6 |   account_replication_type = var.account_replication_type
+                7 |   tags                     = var.tags
+                8 | }
+
+Check: CKV_AZURE_44: "Ensure Storage Account is using the latest version of TLS encryption"
+        FAILED for resource: module.subscription.module.services.module.sa00services.azurerm_storage_account.storage_account
+        File: /modules/storage_account/main.tf:1-8
+        Calling File: /subscription/rg-services/main.tf:8-31
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-storage-policies/bc-azr-storage-2
+
+                1 | resource "azurerm_storage_account" "storage_account" {
+                2 |   name                     = var.storage_account_name
+                3 |   resource_group_name      = var.resource_group_name
+                4 |   location                 = var.location
+                5 |   account_tier             = var.account_tier
+                6 |   account_replication_type = var.account_replication_type
+                7 |   tags                     = var.tags
+                8 | }
+
+Check: CKV_AZURE_34: "Ensure that 'Public access level' is set to Private for blob containers"
+        FAILED for resource: module.subscription.module.services.module.sa00services.azurerm_storage_container.storage_container
+        File: /modules/storage_account/main.tf:21-29
+        Calling File: /subscription/rg-services/main.tf:8-31
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/set-public-access-level-to-private-for-blob-containers
+
+                21 | resource "azurerm_storage_container" "storage_container" {
+                22 |   for_each = {
+                23 |     for container in var.storage_containers : container.name => container
+                24 |   }
+                25 | 
+                26 |   name                  = each.value.name
+                27 |   storage_account_id    = azurerm_storage_account.storage_account.id
+                28 |   container_access_type = each.value.container_access_type
+                29 | }
+
+Check: CKV_AZURE_178: "Ensure linux VM enables SSH with keys for secure communication"
+        FAILED for resource: module.subscription.module.services.module.tst01-lvm.azurerm_linux_virtual_machine.linux_vm
+        File: /modules/vm_linux/main.tf:1-44
+        Calling File: /subscription/rg-services/main.tf:72-80
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/azr-general-178
+
+                1  | resource "azurerm_linux_virtual_machine" "linux_vm" {
+                2  |   resource_group_name = var.resource_group_name
+                3  |   location            = var.location
+                4  | 
+                5  |   name          = var.vmname
+                6  |   computer_name = var.vmname
+                7  |   size          = "Standard_B1s"
+                8  | 
+                9  |   network_interface_ids = [resource.azurerm_network_interface.vm_nic.id]
+                10 | 
+                11 |   admin_username                  = "vm-admin"
+                12 |   admin_password                  = data.azurerm_key_vault_secret.vm_password.value
+                13 |   disable_password_authentication = false
+                14 | 
+                15 |   patch_assessment_mode = "AutomaticByPlatform"
+                16 |   patch_mode            = "AutomaticByPlatform"
+                17 | 
+                18 |   allow_extension_operations = true
+                19 |   provision_vm_agent         = true
+                20 | 
+                21 |   termination_notification {
+                22 |     enabled = true
+                23 |     timeout = "PT10M"
+                24 |   }
+                25 | 
+                26 |   source_image_reference {
+                27 |     publisher = "debian"
+                28 |     offer     = "debian-13"
+                29 |     sku       = "13"
+                30 |     version   = "latest"
+                31 |   }
+                32 | 
+                33 |   disk_controller_type = "SCSI"
+                34 |   os_disk {
+                35 |     name                 = "${var.vmname}-osdisk"
+                36 |     storage_account_type = "Standard_LRS"
+                37 |     caching              = "None"
+                38 |     disk_size_gb         = 47
+                39 |   }
+                40 | 
+                41 |   lifecycle {
+                42 |     ignore_changes = [admin_password]
+                43 |   }
+                44 | }
+
+Check: CKV_AZURE_50: "Ensure Virtual Machine Extensions are not Installed"
+        FAILED for resource: module.subscription.module.services.module.tst01-lvm.azurerm_linux_virtual_machine.linux_vm
+        File: /modules/vm_linux/main.tf:1-44
+        Calling File: /subscription/rg-services/main.tf:72-80
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azr-general-14
+
+                1  | resource "azurerm_linux_virtual_machine" "linux_vm" {
+                2  |   resource_group_name = var.resource_group_name
+                3  |   location            = var.location
+                4  | 
+                5  |   name          = var.vmname
+                6  |   computer_name = var.vmname
+                7  |   size          = "Standard_B1s"
+                8  | 
+                9  |   network_interface_ids = [resource.azurerm_network_interface.vm_nic.id]
+                10 | 
+                11 |   admin_username                  = "vm-admin"
+                12 |   admin_password                  = data.azurerm_key_vault_secret.vm_password.value
+                13 |   disable_password_authentication = false
+                14 | 
+                15 |   patch_assessment_mode = "AutomaticByPlatform"
+                16 |   patch_mode            = "AutomaticByPlatform"
+                17 | 
+                18 |   allow_extension_operations = true
+                19 |   provision_vm_agent         = true
+                20 | 
+                21 |   termination_notification {
+                22 |     enabled = true
+                23 |     timeout = "PT10M"
+                24 |   }
+                25 | 
+                26 |   source_image_reference {
+                27 |     publisher = "debian"
+                28 |     offer     = "debian-13"
+                29 |     sku       = "13"
+                30 |     version   = "latest"
+                31 |   }
+                32 | 
+                33 |   disk_controller_type = "SCSI"
+                34 |   os_disk {
+                35 |     name                 = "${var.vmname}-osdisk"
+                36 |     storage_account_type = "Standard_LRS"
+                37 |     caching              = "None"
+                38 |     disk_size_gb         = 47
+                39 |   }
+                40 | 
+                41 |   lifecycle {
+                42 |     ignore_changes = [admin_password]
+                43 |   }
+                44 | }
+
+Check: CKV_AZURE_1: "Ensure Azure Instance does not use basic authentication(Use SSH Key Instead)"
+        FAILED for resource: module.subscription.module.services.module.tst01-lvm.azurerm_linux_virtual_machine.linux_vm
+        File: /modules/vm_linux/main.tf:1-44
+        Calling File: /subscription/rg-services/main.tf:72-80
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/bc-azr-networking-1
+
+                1  | resource "azurerm_linux_virtual_machine" "linux_vm" {
+                2  |   resource_group_name = var.resource_group_name
+                3  |   location            = var.location
+                4  | 
+                5  |   name          = var.vmname
+                6  |   computer_name = var.vmname
+                7  |   size          = "Standard_B1s"
+                8  | 
+                9  |   network_interface_ids = [resource.azurerm_network_interface.vm_nic.id]
+                10 | 
+                11 |   admin_username                  = "vm-admin"
+                12 |   admin_password                  = data.azurerm_key_vault_secret.vm_password.value
+                13 |   disable_password_authentication = false
+                14 | 
+                15 |   patch_assessment_mode = "AutomaticByPlatform"
+                16 |   patch_mode            = "AutomaticByPlatform"
+                17 | 
+                18 |   allow_extension_operations = true
+                19 |   provision_vm_agent         = true
+                20 | 
+                21 |   termination_notification {
+                22 |     enabled = true
+                23 |     timeout = "PT10M"
+                24 |   }
+                25 | 
+                26 |   source_image_reference {
+                27 |     publisher = "debian"
+                28 |     offer     = "debian-13"
+                29 |     sku       = "13"
+                30 |     version   = "latest"
+                31 |   }
+                32 | 
+                33 |   disk_controller_type = "SCSI"
+                34 |   os_disk {
+                35 |     name                 = "${var.vmname}-osdisk"
+                36 |     storage_account_type = "Standard_LRS"
+                37 |     caching              = "None"
+                38 |     disk_size_gb         = 47
+                39 |   }
+                40 | 
+                41 |   lifecycle {
+                42 |     ignore_changes = [admin_password]
+                43 |   }
+                44 | }
+
+Check: CKV_AZURE_149: "Ensure that Virtual machine does not enable password authentication"
+        FAILED for resource: module.subscription.module.services.module.tst01-lvm.azurerm_linux_virtual_machine.linux_vm
+        File: /modules/vm_linux/main.tf:1-44
+        Calling File: /subscription/rg-services/main.tf:72-80
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/ensure-azure-virtual-machine-does-not-enable-password-authentication
+
+                1  | resource "azurerm_linux_virtual_machine" "linux_vm" {
+                2  |   resource_group_name = var.resource_group_name
+                3  |   location            = var.location
+                4  | 
+                5  |   name          = var.vmname
+                6  |   computer_name = var.vmname
+                7  |   size          = "Standard_B1s"
+                8  | 
+                9  |   network_interface_ids = [resource.azurerm_network_interface.vm_nic.id]
+                10 | 
+                11 |   admin_username                  = "vm-admin"
+                12 |   admin_password                  = data.azurerm_key_vault_secret.vm_password.value
+                13 |   disable_password_authentication = false
+                14 | 
+                15 |   patch_assessment_mode = "AutomaticByPlatform"
+                16 |   patch_mode            = "AutomaticByPlatform"
+                17 | 
+                18 |   allow_extension_operations = true
+                19 |   provision_vm_agent         = true
+                20 | 
+                21 |   termination_notification {
+                22 |     enabled = true
+                23 |     timeout = "PT10M"
+                24 |   }
+                25 | 
+                26 |   source_image_reference {
+                27 |     publisher = "debian"
+                28 |     offer     = "debian-13"
+                29 |     sku       = "13"
+                30 |     version   = "latest"
+                31 |   }
+                32 | 
+                33 |   disk_controller_type = "SCSI"
+                34 |   os_disk {
+                35 |     name                 = "${var.vmname}-osdisk"
+                36 |     storage_account_type = "Standard_LRS"
+                37 |     caching              = "None"
+                38 |     disk_size_gb         = 47
+                39 |   }
+                40 | 
+                41 |   lifecycle {
+                42 |     ignore_changes = [admin_password]
+                43 |   }
+                44 | }
+
+Check: CKV2_AZURE_41: "Ensure storage account is configured with SAS expiration policy"
+        FAILED for resource: module.subscription.module.services.module.sa00services.azurerm_storage_account.storage_account
+        File: /modules/storage_account/main.tf:1-8
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-iam-policies/bc-azure-2-41
+
+                1 | resource "azurerm_storage_account" "storage_account" {
+                2 |   name                     = var.storage_account_name
+                3 |   resource_group_name      = var.resource_group_name
+                4 |   location                 = var.location
+                5 |   account_tier             = var.account_tier
+                6 |   account_replication_type = var.account_replication_type
+                7 |   tags                     = var.tags
+                8 | }
+
+Check: CKV2_AZURE_33: "Ensure storage account is configured with private endpoint"
+        FAILED for resource: module.subscription.module.services.module.sa00services.azurerm_storage_account.storage_account
+        File: /modules/storage_account/main.tf:1-8
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azure-2-33
+
+                1 | resource "azurerm_storage_account" "storage_account" {
+                2 |   name                     = var.storage_account_name
+                3 |   resource_group_name      = var.resource_group_name
+                4 |   location                 = var.location
+                5 |   account_tier             = var.account_tier
+                6 |   account_replication_type = var.account_replication_type
+                7 |   tags                     = var.tags
+                8 | }
+
+Check: CKV2_AZURE_47: "Ensure storage account is configured without blob anonymous access"
+        FAILED for resource: module.subscription.module.services.module.sa00services.azurerm_storage_account.storage_account
+        File: /modules/storage_account/main.tf:1-8
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-iam-policies/bc-azure-2-47
+
+                1 | resource "azurerm_storage_account" "storage_account" {
+                2 |   name                     = var.storage_account_name
+                3 |   resource_group_name      = var.resource_group_name
+                4 |   location                 = var.location
+                5 |   account_tier             = var.account_tier
+                6 |   account_replication_type = var.account_replication_type
+                7 |   tags                     = var.tags
+                8 | }
+
+Check: CKV2_AZURE_40: "Ensure storage account is not configured with Shared Key authorization"
+        FAILED for resource: module.subscription.module.services.module.sa00services.azurerm_storage_account.storage_account
+        File: /modules/storage_account/main.tf:1-8
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-iam-policies/bc-azure-2-40
+
+                1 | resource "azurerm_storage_account" "storage_account" {
+                2 |   name                     = var.storage_account_name
+                3 |   resource_group_name      = var.resource_group_name
+                4 |   location                 = var.location
+                5 |   account_tier             = var.account_tier
+                6 |   account_replication_type = var.account_replication_type
+                7 |   tags                     = var.tags
+                8 | }
+
+Check: CKV2_AZURE_21: "Ensure Storage logging is enabled for Blob service for read requests"
+        FAILED for resource: module.subscription.module.services.module.sa00services.azurerm_storage_container.storage_container
+        File: /modules/storage_account/main.tf:21-29
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-logging-policies/ensure-storage-logging-is-enabled-for-blob-service-for-read-requests
+
+                21 | resource "azurerm_storage_container" "storage_container" {
+                22 |   for_each = {
+                23 |     for container in var.storage_containers : container.name => container
+                24 |   }
+                25 | 
+                26 |   name                  = each.value.name
+                27 |   storage_account_id    = azurerm_storage_account.storage_account.id
+                28 |   container_access_type = each.value.container_access_type
+                29 | }
+
+Check: CKV2_AZURE_38: "Ensure soft-delete is enabled on Azure storage account"
+        FAILED for resource: module.subscription.module.services.module.sa00services.azurerm_storage_account.storage_account
+        File: /modules/storage_account/main.tf:1-8
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azure-2-38
+
+                1 | resource "azurerm_storage_account" "storage_account" {
+                2 |   name                     = var.storage_account_name
+                3 |   resource_group_name      = var.resource_group_name
+                4 |   location                 = var.location
+                5 |   account_tier             = var.account_tier
+                6 |   account_replication_type = var.account_replication_type
+                7 |   tags                     = var.tags
+                8 | }
+
+Check: CKV2_AZURE_32: "Ensure private endpoint is configured to key vault"
+        FAILED for resource: module.subscription.module.services.module.keyvault-dmn-tf-test.azurerm_key_vault.key_vault
+        File: /modules/key_vault/main.tf:1-31
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azure-2-32
+
+                1  | resource "azurerm_key_vault" "key_vault" {
+                2  |   name                        = var.key_vault_name
+                3  |   resource_group_name         = var.resource_group_name
+                4  |   location                    = var.location
+                5  |   enabled_for_disk_encryption = true
+                6  |   tenant_id                   = var.tenant_id
+                7  |   sku_name                    = var.sku_name
+                8  | 
+                9  |   network_acls {
+                10 |     default_action = "Deny"
+                11 |     ip_rules       = [var.ip]
+                12 |     bypass         = "AzureServices"
+                13 |   }
+                14 | 
+                15 |   access_policy {
+                16 |     tenant_id = var.tenant_id
+                17 |     object_id = var.global_admin_object_id
+                18 | 
+                19 |     key_permissions = [
+                20 |       "Get", "List", "Create", "Delete", "Recover", "Restore", "Backup", "Update"
+                21 |     ]
+                22 | 
+                23 |     secret_permissions = [
+                24 |       "Get", "List", "Set", "Delete", "Recover", "Restore", "Backup"
+                25 |     ]
+                26 | 
+                27 |     certificate_permissions = [
+                28 |       "Get", "List", "Update", "Create", "Import", "Delete", "Purge"
+                29 |     ]
+                30 |   }
+                31 | }
+
+Check: CKV2_AZURE_1: "Ensure storage for critical data are encrypted with Customer Managed Key"
+        FAILED for resource: module.subscription.module.services.module.sa00services.azurerm_storage_account.storage_account
+        File: /modules/storage_account/main.tf:1-8
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/ensure-storage-for-critical-data-are-encrypted-with-customer-managed-key
+
+                1 | resource "azurerm_storage_account" "storage_account" {
+                2 |   name                     = var.storage_account_name
+                3 |   resource_group_name      = var.resource_group_name
+                4 |   location                 = var.location
+                5 |   account_tier             = var.account_tier
+                6 |   account_replication_type = var.account_replication_type
+                7 |   tags                     = var.tags
+                8 | }
+
+Check: CKV2_AZURE_31: "Ensure VNET subnet is configured with a Network Security Group (NSG)"
+        FAILED for resource: module.subscription.module.services.module.vnet00-services.azurerm_subnet.subnets["subnet1"]
+        File: /modules/vnet/main.tf:8-14
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azure-2-31
+
+                8  | resource "azurerm_subnet" "subnets" {
+                9  |   for_each             = var.subnets
+                10 |   name                 = each.key
+                11 |   resource_group_name  = var.resource_group_name
+                12 |   virtual_network_name = azurerm_virtual_network.vnet.name
+                13 |   address_prefixes     = each.value.address_prefixes
+                14 | }
+
+Check: CKV2_AZURE_31: "Ensure VNET subnet is configured with a Network Security Group (NSG)"
+        FAILED for resource: module.subscription.module.services.module.vnet00-services.azurerm_subnet.subnets["subnet2"]
+        File: /modules/vnet/main.tf:8-14
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azure-2-31
+
+                8  | resource "azurerm_subnet" "subnets" {
+                9  |   for_each             = var.subnets
+                10 |   name                 = each.key
+                11 |   resource_group_name  = var.resource_group_name
+                12 |   virtual_network_name = azurerm_virtual_network.vnet.name
+                13 |   address_prefixes     = each.value.address_prefixes
+                14 | }

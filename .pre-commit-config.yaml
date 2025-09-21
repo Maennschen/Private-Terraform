@@ -10,6 +10,7 @@ repos:
       # - id: terraform_checkov
       #   args:
       #     - '--args=--framework terraform --download-external-modules true'
-      # - id: terraform_docs
-      #   args:
-      #     - --args='markdown table --output-file README.md "/home/daniel-wsl/git/Private-Terraform/docs" --lockfile false'
+      - id: terraform_docs
+        args:
+          - '--args=--output-mode=inject'
+          - '--args=--lockfile=false'

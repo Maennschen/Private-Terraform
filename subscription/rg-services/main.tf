@@ -24,8 +24,7 @@ module "sa00services" {
 
   storage_containers = [
     {
-      name                  = "sc00terraform"
-      container_access_type = "private"
+      name = "sc00terraform"
     }
   ]
 }
@@ -44,7 +43,7 @@ module "keyvault-dmn-tf-test" {
   resource_group_name = module.rg-services.name
   location            = module.rg-services.location
 
-  ip = "194.126.177.146/32"
+  ip = "89.36.76.133/32"
 
   tenant_id              = var.tenant_id
   sku_name               = "standard"

@@ -6,7 +6,15 @@ resource "azurerm_storage_account" "storage_account" {
   account_replication_type      = var.account_replication_type
   shared_access_key_enabled     = false
   public_network_access_enabled = false
-  tags                          = var.tags
+  min_tls_version               = "TLS1_2"
+
+  blob_properties {
+    delete_retention_policy {
+      days = 7
+    }
+  }
+
+  tags = var.tags
 }
 
 resource "azurerm_storage_share" "file_share" {
@@ -27,5 +35,5 @@ resource "azurerm_storage_container" "storage_container" {
 
   name                  = each.value.name
   storage_account_id    = azurerm_storage_account.storage_account.id
-  container_access_type = each.value.container_access_type
+  container_access_type = "private"
 }

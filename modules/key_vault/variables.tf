@@ -27,9 +27,3 @@ variable "global_admin_object_id" {
   description = "The object ID of the Global Admin who should have access to the key vault."
   type        = string
 }
-
-variable "ip" {
-  description = "My Private IP for Key Vault access policy."
-  type        = string
-  default     = null
-}

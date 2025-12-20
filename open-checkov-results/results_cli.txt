@@ -3,58 +3,55 @@ terraform scan results:
 Passed checks: 23, Failed checks: 14, Skipped checks: 0
 
 Check: CKV_AZURE_190: "Ensure that Storage blobs restrict public access"
-	FAILED for resource: module.subscription.module.services.module.sa00services.azurerm_storage_account.storage_account
+	FAILED for resource: module.subscription.module.services.module.sa00services.azurerm_storage_account.this
 	File: /modules/storage_account/main.tf:1-18
 	Calling File: /subscription/rg-services/main.tf:8-30
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/azr-networking-190
+Check: CKV_AZURE_59: "Ensure that Storage accounts disallow public access"
+	FAILED for resource: module.subscription.module.services.module.sa00services.azurerm_storage_account.this
+	File: /modules/storage_account/main.tf:1-18
+	Calling File: /subscription/rg-services/main.tf:8-30
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/ensure-that-storage-accounts-disallow-public-access
 Check: CKV_AZURE_33: "Ensure Storage logging is enabled for Queue service for read, write and delete requests"
-	FAILED for resource: module.subscription.module.services.module.sa00services.azurerm_storage_account.storage_account
+	FAILED for resource: module.subscription.module.services.module.sa00services.azurerm_storage_account.this
 	File: /modules/storage_account/main.tf:1-18
 	Calling File: /subscription/rg-services/main.tf:8-30
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-logging-policies/enable-requests-on-storage-logging-for-queue-service
 Check: CKV_AZURE_206: "Ensure that Storage Accounts use replication"
-	FAILED for resource: module.subscription.module.services.module.sa00services.azurerm_storage_account.storage_account
+	FAILED for resource: module.subscription.module.services.module.sa00services.azurerm_storage_account.this
 	File: /modules/storage_account/main.tf:1-18
 	Calling File: /subscription/rg-services/main.tf:8-30
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/azr-general-206
-Check: CKV_AZURE_178: "Ensure linux VM enables SSH with keys for secure communication"
-	FAILED for resource: module.subscription.module.services.module.tst01-lvm.azurerm_linux_virtual_machine.linux_vm
-	File: /modules/vm_linux/main.tf:1-44
-	Calling File: /subscription/rg-services/main.tf:71-79
-	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/azr-general-178
 Check: CKV_AZURE_50: "Ensure Virtual Machine Extensions are not Installed"
-	FAILED for resource: module.subscription.module.services.module.tst01-lvm.azurerm_linux_virtual_machine.linux_vm
-	File: /modules/vm_linux/main.tf:1-44
-	Calling File: /subscription/rg-services/main.tf:71-79
+	FAILED for resource: azurerm_linux_virtual_machine.linux_vm
+	File: /modules/vm_linux/main.tf:1-48
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azr-general-14
-Check: CKV_AZURE_1: "Ensure Azure Instance does not use basic authentication(Use SSH Key Instead)"
-	FAILED for resource: module.subscription.module.services.module.tst01-lvm.azurerm_linux_virtual_machine.linux_vm
-	File: /modules/vm_linux/main.tf:1-44
-	Calling File: /subscription/rg-services/main.tf:71-79
-	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/bc-azr-networking-1
-Check: CKV_AZURE_149: "Ensure that Virtual machine does not enable password authentication"
-	FAILED for resource: module.subscription.module.services.module.tst01-lvm.azurerm_linux_virtual_machine.linux_vm
-	File: /modules/vm_linux/main.tf:1-44
-	Calling File: /subscription/rg-services/main.tf:71-79
-	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/ensure-azure-virtual-machine-does-not-enable-password-authentication
+Check: CKV2_AZURE_41: "Ensure storage account is configured with SAS expiration policy"
+	FAILED for resource: module.subscription.module.services.module.sa00services.azurerm_storage_account.this
+	File: /modules/storage_account/main.tf:1-18
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-iam-policies/bc-azure-2-41
 Check: CKV2_AZURE_33: "Ensure storage account is configured with private endpoint"
-	FAILED for resource: module.subscription.module.services.module.sa00services.azurerm_storage_account.storage_account
+	FAILED for resource: module.subscription.module.services.module.sa00services.azurerm_storage_account.this
 	File: /modules/storage_account/main.tf:1-18
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azure-2-33
 Check: CKV2_AZURE_47: "Ensure storage account is configured without blob anonymous access"
-	FAILED for resource: module.subscription.module.services.module.sa00services.azurerm_storage_account.storage_account
+	FAILED for resource: module.subscription.module.services.module.sa00services.azurerm_storage_account.this
 	File: /modules/storage_account/main.tf:1-18
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-iam-policies/bc-azure-2-47
+Check: CKV2_AZURE_40: "Ensure storage account is not configured with Shared Key authorization"
+	FAILED for resource: module.subscription.module.services.module.sa00services.azurerm_storage_account.this
+	File: /modules/storage_account/main.tf:1-18
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-iam-policies/bc-azure-2-40
 Check: CKV2_AZURE_32: "Ensure private endpoint is configured to key vault"
 	FAILED for resource: module.subscription.module.services.module.keyvault-dmn-tf-test.azurerm_key_vault.key_vault
 	File: /modules/key_vault/main.tf:1-33
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azure-2-32
 Check: CKV2_AZURE_21: "Ensure Storage logging is enabled for Blob service for read requests"
-	FAILED for resource: module.subscription.module.services.module.sa00services.azurerm_storage_container.storage_container
+	FAILED for resource: module.subscription.module.services.module.sa00services.azurerm_storage_container.this
 	File: /modules/storage_account/main.tf:31-39
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-logging-policies/ensure-storage-logging-is-enabled-for-blob-service-for-read-requests
 Check: CKV2_AZURE_1: "Ensure storage for critical data are encrypted with Customer Managed Key"
-	FAILED for resource: module.subscription.module.services.module.sa00services.azurerm_storage_account.storage_account
+	FAILED for resource: module.subscription.module.services.module.sa00services.azurerm_storage_account.this
 	File: /modules/storage_account/main.tf:1-18
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/ensure-storage-for-critical-data-are-encrypted-with-customer-managed-key
 Check: CKV2_AZURE_31: "Ensure VNET subnet is configured with a Network Security Group (NSG)"

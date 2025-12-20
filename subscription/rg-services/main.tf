@@ -43,8 +43,6 @@ module "keyvault-dmn-tf-test" {
   resource_group_name = module.rg-services.name
   location            = module.rg-services.location
 
-  ip = "89.36.76.133/32"
-
   tenant_id              = var.tenant_id
   sku_name               = "standard"
   global_admin_object_id = var.global_admin_object_id
@@ -59,21 +57,21 @@ module "vnet00-services" {
   vnet_address_space  = ["10.0.0.0/16"]
 
   subnets = {
-    "subnet1" = {
+    "v00s01servies" = {
       address_prefixes = ["10.0.1.0/24"]
     },
-    "subnet2" = {
+    "v00s02vms" = {
       address_prefixes = ["10.0.2.0/24"]
     }
   }
 }
 
-module "tst01-lvm" {
-  source = "../../modules/vm_linux"
+# module "tst01-lvm" {
+#   source = "../../modules/vm_linux"
 
-  vmname              = "tst01-lvm"
-  resource_group_name = module.rg-services.name
-  location            = module.rg-services.location
+#   vmname              = "tst01-lvm"
+#   resource_group_name = module.rg-services.name
+#   location            = module.rg-services.location
 
-  vnet = module.vnet00-services.subnet_ids.subnet1
-}
+#   vnet = module.vnet00-services.subnet_ids.v00s02vms
+# }

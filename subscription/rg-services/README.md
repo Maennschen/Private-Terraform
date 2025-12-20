@@ -16,7 +16,6 @@ No requirements.
 | <a name="module_keyvault-dmn-tf-test"></a> [keyvault-dmn-tf-test](#module\_keyvault-dmn-tf-test) | ../../modules/key_vault | n/a |
 | <a name="module_rg-services"></a> [rg-services](#module\_rg-services) | ../../modules/resource_group | n/a |
 | <a name="module_sa00services"></a> [sa00services](#module\_sa00services) | ../../modules/storage_account | n/a |
-| <a name="module_tst01-lvm"></a> [tst01-lvm](#module\_tst01-lvm) | ../../modules/vm_linux | n/a |
 | <a name="module_vnet00-services"></a> [vnet00-services](#module\_vnet00-services) | ../../modules/vnet | n/a |
 
 ## Resources

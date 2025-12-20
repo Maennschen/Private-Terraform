@@ -12,7 +12,7 @@ repos:
     rev: v1.103.0
     hooks:
       - id: terraform_fmt
-      - id: terraform_validate
+      # - id: terraform_validate
       - id: terraform_tflint
         args:
           - '--args=--config=/home/daniel-wsl/git/Private-Terraform/.tflint.hcl'

@@ -10,7 +10,11 @@ resource "azurerm_linux_virtual_machine" "linux_vm" {
 
   admin_username                  = "vm-admin"
   admin_password                  = data.azurerm_key_vault_secret.vm_password.value
-  disable_password_authentication = false
+  disable_password_authentication = false # checkov == ture ? true : false
+  admin_ssh_key {
+    username   = "vm-admin"
+    public_key = data.azurerm_key_vault_secret.vm_ssh_public_key.value
+  }
 
   patch_assessment_mode = "AutomaticByPlatform"
   patch_mode            = "AutomaticByPlatform"

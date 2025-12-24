@@ -1,3 +1,16 @@
+
+
+       _               _
+   ___| |__   ___  ___| | _______   __
+  / __| '_ \ / _ \/ __| |/ / _ \ \ / /
+ | (__| | | |  __/ (__|   < (_) \ V /
+  \___|_| |_|\___|\___|_|\_\___/ \_/
+
+By Prisma Cloud | version: 3.2.471
+Update available 3.2.471 -> 3.2.495
+Run pip3 install -U checkov to update
+
+
 terraform scan results:
 
 Passed checks: 33, Failed checks: 11, Skipped checks: 0

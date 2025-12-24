@@ -5,9 +5,7 @@ No requirements.
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | n/a |
+No providers.
 
 ## Modules
 
@@ -16,13 +14,10 @@ No requirements.
 | <a name="module_keyvault-dmn-tf-test"></a> [keyvault-dmn-tf-test](#module\_keyvault-dmn-tf-test) | ../../modules/key_vault | n/a |
 | <a name="module_rg-services"></a> [rg-services](#module\_rg-services) | ../../modules/resource_group | n/a |
 | <a name="module_sa00services"></a> [sa00services](#module\_sa00services) | ../../modules/storage_account | n/a |
-| <a name="module_vnet00-services"></a> [vnet00-services](#module\_vnet00-services) | ../../modules/vnet | n/a |
 
 ## Resources
 
-| Name | Type |
-|------|------|
-| [azurerm_management_lock.tfstate_container_lock](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/management_lock) | resource |
+No resources.
 
 ## Inputs
 

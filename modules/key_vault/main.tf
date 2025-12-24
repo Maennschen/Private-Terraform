@@ -3,10 +3,10 @@ resource "azurerm_key_vault" "key_vault" {
   resource_group_name         = var.resource_group_name
   location                    = var.location
   enabled_for_disk_encryption = true
-  tenant_id                   = var.tenant_id
+  tenant_id                   = data.azurerm_client_config.current.tenant_id
   sku_name                    = var.sku_name
   purge_protection_enabled    = true
-  soft_delete_retention_days  = 90
+  soft_delete_retention_days  = 7
 
   access_policy {
     tenant_id = var.tenant_id
@@ -23,5 +23,17 @@ resource "azurerm_key_vault" "key_vault" {
     certificate_permissions = [
       "Get", "List", "Update", "Create", "Import", "Delete", "Purge"
     ]
+  }
+
+  public_network_access_enabled = var.public_network_access_enabled
+
+  # Feature Toggle: Network ACLs
+  dynamic "network_acls" {
+    for_each = var.network_acls_enabled ? [1] : []
+    content {
+      default_action = "Deny"
+      bypass         = "AzureServices"
+      ip_rules       = var.allowed_ip_ranges
+    }
   }
 }

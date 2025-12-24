@@ -27,3 +27,21 @@ variable "global_admin_object_id" {
   description = "The object ID of the Global Admin who should have access to the key vault."
   type        = string
 }
+
+variable "public_network_access_enabled" {
+  description = "Allow public network access to Key Vault"
+  type        = bool
+  default     = true
+}
+
+variable "network_acls_enabled" {
+  description = "Enable network ACLs (firewall rules)"
+  type        = bool
+  default     = false
+}
+
+variable "allowed_ip_ranges" {
+  description = "IP ranges allowed to access Key Vault"
+  type        = list(string)
+  default     = []
+}

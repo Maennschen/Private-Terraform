@@ -24,4 +24,16 @@ resource "azurerm_key_vault" "key_vault" {
       "Get", "List", "Update", "Create", "Import", "Delete", "Purge"
     ]
   }
+
+  public_network_access_enabled = var.public_network_access_enabled
+
+  # Feature Toggle: Network ACLs
+  dynamic "network_acls" {
+    for_each = var.network_acls_enabled ? [1] : []
+    content {
+      default_action = "Deny"
+      bypass         = "AzureServices"
+      ip_rules       = var.allowed_ip_ranges
+    }
+  }
 }

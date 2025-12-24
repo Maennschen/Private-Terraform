@@ -49,3 +49,21 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "public_network_access_enabled" {
+  description = "Allow public network access"
+  type        = bool
+  default     = true
+}
+
+variable "allow_blob_public_access" {
+  description = "Allow anonymous public access to blobs"
+  type        = bool
+  default     = false
+}
+
+variable "shared_access_key_enabled" {
+  description = "Enable Shared Access Key authentication"
+  type        = bool
+  default     = true
+}

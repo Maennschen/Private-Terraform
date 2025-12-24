@@ -27,6 +27,10 @@ module "sa00services" {
       name = "sc00terraform"
     }
   ]
+
+  public_network_access_enabled = local.security_config.enable_public_network_access
+  allow_blob_public_access      = false
+  shared_access_key_enabled     = !local.security_config.enable_cmk_encryption
 }
 
 resource "azurerm_management_lock" "tfstate_container_lock" {
@@ -46,6 +50,9 @@ module "keyvault-dmn-tf-test" {
   tenant_id              = var.tenant_id
   sku_name               = "standard"
   global_admin_object_id = var.global_admin_object_id
+
+  public_network_access_enabled = local.security_config.enable_public_network_access
+  network_acls_enabled          = local.security_config.enable_network_restrictions
 }
 
 module "vnet00-services" {

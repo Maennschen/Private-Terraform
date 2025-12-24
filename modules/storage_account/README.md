@@ -27,9 +27,12 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_account_replication_type"></a> [account\_replication\_type](#input\_account\_replication\_type) | Replikationstyp des Storage Accounts (z. B. LRS, GRS, ZRS). | `string` | `"LRS"` | no |
 | <a name="input_account_tier"></a> [account\_tier](#input\_account\_tier) | Performance-Tier des Storage Accounts (Standard oder Premium). | `string` | `"Standard"` | no |
+| <a name="input_allow_blob_public_access"></a> [allow\_blob\_public\_access](#input\_allow\_blob\_public\_access) | Allow anonymous public access to blobs | `bool` | `false` | no |
 | <a name="input_file_shares"></a> [file\_shares](#input\_file\_shares) | Liste der zu erstellenden File Shares. | <pre>list(object({<br/>    name        = string<br/>    quota       = number<br/>    access_tier = optional(string, "Hot")<br/>  }))</pre> | `[]` | no |
 | <a name="input_location"></a> [location](#input\_location) | Azure Region, in der der Storage Account erstellt wird. | `string` | n/a | yes |
+| <a name="input_public_network_access_enabled"></a> [public\_network\_access\_enabled](#input\_public\_network\_access\_enabled) | Allow public network access | `bool` | `true` | no |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | Name der Resource Group, in der der Storage Account erstellt wird. | `string` | n/a | yes |
+| <a name="input_shared_access_key_enabled"></a> [shared\_access\_key\_enabled](#input\_shared\_access\_key\_enabled) | Enable Shared Access Key authentication | `bool` | `true` | no |
 | <a name="input_storage_account_name"></a> [storage\_account\_name](#input\_storage\_account\_name) | Name des Storage Accounts (global eindeutig, nur Kleinbuchstaben und Zahlen). | `string` | n/a | yes |
 | <a name="input_storage_containers"></a> [storage\_containers](#input\_storage\_containers) | Liste der zu erstellenden Storage Container. | <pre>list(object({<br/>    name                  = string<br/>    container_access_type = optional(string, "private")<br/>  }))</pre> | `[]` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags für die Ressourcen. | `map(string)` | `{}` | no |

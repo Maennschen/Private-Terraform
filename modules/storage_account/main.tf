@@ -1,12 +1,14 @@
 resource "azurerm_storage_account" "this" {
-  name                          = var.storage_account_name
-  resource_group_name           = var.resource_group_name
-  location                      = var.location
-  account_tier                  = var.account_tier
-  account_replication_type      = var.account_replication_type
-  shared_access_key_enabled     = true # checkov == true ? false : true
-  public_network_access_enabled = true # checkov == true ? false : true
-  min_tls_version               = "TLS1_2"
+  name                     = var.storage_account_name
+  resource_group_name      = var.resource_group_name
+  location                 = var.location
+  account_tier             = var.account_tier
+  account_replication_type = var.account_replication_type
+
+  shared_access_key_enabled       = false # checkov == true ? false : true
+  public_network_access_enabled   = false # checkov == true ? false : true
+  allow_nested_items_to_be_public = false # checkov == true ? false : true
+  min_tls_version                 = "TLS1_2"
 
   blob_properties {
     delete_retention_policy {

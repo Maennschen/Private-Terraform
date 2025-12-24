@@ -3,10 +3,10 @@ resource "azurerm_key_vault" "key_vault" {
   resource_group_name         = var.resource_group_name
   location                    = var.location
   enabled_for_disk_encryption = true
-  tenant_id                   = data.azurerm_client_config.current.tenant_id
+  tenant_id                   = var.tenant_id
   sku_name                    = var.sku_name
   purge_protection_enabled    = true
-  soft_delete_retention_days  = 7
+  soft_delete_retention_days  = 90
 
   access_policy {
     tenant_id = var.tenant_id

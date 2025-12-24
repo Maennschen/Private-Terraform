@@ -22,22 +22,9 @@ module "sa00services" {
     }
   ]
 
-  storage_containers = [
-    {
-      name = "sc00terraform"
-    }
-  ]
-
   public_network_access_enabled = local.security_config.enable_public_network_access
   allow_blob_public_access      = false
   shared_access_key_enabled     = !local.security_config.enable_cmk_encryption
-}
-
-resource "azurerm_management_lock" "tfstate_container_lock" {
-  name       = "TerraformStateProtection"
-  scope      = module.sa00services.storage_container_ids.sc00terraform
-  lock_level = "CanNotDelete"
-  notes      = "Schützt den Terraform State-Container vor versehentlicher Löschung."
 }
 
 module "keyvault-dmn-tf-test" {
@@ -54,31 +41,3 @@ module "keyvault-dmn-tf-test" {
   public_network_access_enabled = local.security_config.enable_public_network_access
   network_acls_enabled          = local.security_config.enable_network_restrictions
 }
-
-module "vnet00-services" {
-  source = "../../modules/vnet"
-
-  resource_group_name = module.rg-services.name
-  location            = module.rg-services.location
-  vnet_name           = "vnet00-services"
-  vnet_address_space  = ["10.0.0.0/16"]
-
-  subnets = {
-    "v00s01servies" = {
-      address_prefixes = ["10.0.1.0/24"]
-    },
-    "v00s02vms" = {
-      address_prefixes = ["10.0.2.0/24"]
-    }
-  }
-}
-
-# module "tst01-lvm" {
-#   source = "../../modules/vm_linux"
-
-#   vmname              = "tst01-lvm"
-#   resource_group_name = module.rg-services.name
-#   location            = module.rg-services.location
-
-#   vnet = module.vnet00-services.subnet_ids.v00s02vms
-# }

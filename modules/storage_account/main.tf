@@ -18,9 +18,22 @@ resource "azurerm_storage_account" "this" {
 
   sas_policy {
     expiration_period = "90.00:00:00"
+    expiration_action = "Log"
   }
 
   tags = var.tags
+}
+
+resource "azurerm_storage_account_queue_properties" "this" {
+  storage_account_id = azurerm_storage_account.this.id
+
+  logging {
+    delete                = true
+    read                  = true
+    write                 = true
+    version               = "1.0"
+    retention_policy_days = 7
+  }
 }
 
 resource "azurerm_storage_share" "this" {

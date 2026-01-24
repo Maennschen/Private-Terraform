@@ -19,7 +19,7 @@ resource "azurerm_linux_virtual_machine" "linux_vm" {
   patch_assessment_mode = "AutomaticByPlatform"
   patch_mode            = "AutomaticByPlatform"
 
-  allow_extension_operations = true
+  allow_extension_operations = false
   provision_vm_agent         = true
 
   termination_notification {

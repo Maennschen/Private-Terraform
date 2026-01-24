@@ -20,6 +20,12 @@ resource "azurerm_subnet_network_security_group_association" "nsg_assoc" {
   depends_on                = [azurerm_subnet.subnets, module.default_nsg]
 }
 
+resource "azurerm_subnet_network_security_group_association" "subnet_nsg" {
+  for_each                  = var.subnets
+  subnet_id                 = azurerm_subnet.subnets[each.key].id
+  network_security_group_id = module.default_nsg.nsg_id
+}
+
 module "default_nsg" {
   source              = "../network_security_group"
   nsg_name            = "default-nsg"

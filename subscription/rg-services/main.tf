@@ -24,7 +24,9 @@ module "sa00services" {
 
   public_network_access_enabled = local.security_config.enable_public_network_access
   allow_blob_public_access      = false
-  shared_access_key_enabled     = !local.security_config.enable_cmk_encryption
+  # Decoupled from CMK: keys off by default (Entra + RBAC). Not the Terraform state account.
+  shared_access_key_enabled = local.security_config.enable_shared_access_key
+  data_plane_principal_id   = var.global_admin_object_id
 }
 
 module "keyvault-dmn-tf-test" {

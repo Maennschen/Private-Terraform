@@ -14,7 +14,7 @@ repos:
       - id: terraform_fmt
       - id: terraform_tflint
         args:
-          - '--args=--config=/home/daniel-wsl/git/Private-Terraform/.tflint.hcl'
+          - '--args=--config=.tflint.hcl'
       - id: terraform_docs
         args:
           - '--args=--output-mode=inject'

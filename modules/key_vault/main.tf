@@ -1,4 +1,7 @@
+# Free / learning lab — no private endpoint budget; public access needed with dynamic home IP.
 resource "azurerm_key_vault" "key_vault" {
+  # checkov:skip=CKV2_AZURE_32: Free learning lab — Key Vault private endpoint costs money; not in scope
+  # checkov:skip=CKV_AZURE_189: Public network access kept for home access; DE residential IP is dynamic (no stable ip_rules without PE/VPN)
   name                        = var.key_vault_name
   resource_group_name         = var.resource_group_name
   location                    = var.location

@@ -63,7 +63,19 @@ variable "allow_blob_public_access" {
 }
 
 variable "shared_access_key_enabled" {
-  description = "Enable Shared Access Key authentication"
+  description = "Allow Shared Key / account-key SAS. Prefer false (Entra ID + RBAC) for learning/security."
+  type        = bool
+  default     = false
+}
+
+variable "default_to_oauth_authentication" {
+  description = "Prefer OAuth/Entra auth in Azure portal and compatible clients (does not replace disabling shared keys)."
   type        = bool
   default     = true
+}
+
+variable "data_plane_principal_id" {
+  description = "Entra object ID that gets storage data-plane RBAC when shared keys are disabled. Null skips role assignments."
+  type        = string
+  default     = null
 }

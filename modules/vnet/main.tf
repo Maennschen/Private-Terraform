@@ -45,3 +45,23 @@ module "default_nsg" {
     }
   }
 }
+
+resource "azurerm_network_watcher_flow_log" "vnet" {
+  count = var.enable_flow_logs ? 1 : 0
+
+  network_watcher_name = data.azurerm_network_watcher.this[0].name
+  resource_group_name  = data.azurerm_network_watcher.this[0].resource_group_name
+  name                 = "${var.vnet_name}-flow-log"
+
+  target_resource_id = azurerm_virtual_network.vnet.id
+  storage_account_id = var.flow_log_storage_account_id
+  enabled            = true
+  version            = 2
+
+  retention_policy {
+    enabled = true
+    days    = var.flow_log_retention_days
+  }
+
+  # Traffic Analytics / Log Analytics intentionally omitted (cost).
+}

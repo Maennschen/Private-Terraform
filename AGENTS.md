@@ -47,8 +47,23 @@ Operational defaults (learning):
 - `enable_cmk_encryption = false` — overkill for free lab
 - `enable_shared_access_key = false` — **Entra ID + RBAC** on `sa00services` (not the state SA). GA/`az login` still manages control plane; data plane needs the assigned storage roles.
 - Provider must set `storage_use_azuread = true` when keys are disabled — otherwise plan/refresh fails on queue/share data plane with 403 KeyBasedAuthenticationNotPermitted.
+- **Logging (code present, default off):** `enable_blob_diagnostic_logs` (blob diag → storage) and VNet flow logs (`enable_vnet_flow_logs` + storage id in `subscription/main.tf`). Do not enable casually — log storage costs. Checkov CKV2_AZURE_21 wants Log Analytics Storage Insights (keys + LA cost); we skip and use optional diagnostic settings instead.
 
 `compliance_mode = true` flips all “strict” flags on — use only for scan experiments, **not** for day-to-day apply on Free.
+
+## Module / package file layout
+
+In every Terraform module (and subscription packages under `subscription/`), split by block type:
+
+| Block | File |
+|-------|------|
+| `resource` / nested `module` calls | `main.tf` |
+| `data` | `data.tf` |
+| `variable` | `variables.tf` |
+| `output` | `outputs.tf`  |
+| `locals` | `locals.tf` |
+
+Do not mix types across files. Omit empty files (no empty `data.tf` placeholders).
 
 ## Working conventions
 

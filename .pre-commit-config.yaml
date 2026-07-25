@@ -14,7 +14,8 @@ repos:
       - id: terraform_fmt
       - id: terraform_tflint
         args:
-          - '--args=--config=.tflint.hcl'
+          # Hook runs tflint per module dir; __GIT_WORKING_DIR__ = repo root (portable, no host path)
+          - '--args=--config=__GIT_WORKING_DIR__/.tflint.hcl'
       - id: terraform_docs
         args:
           - '--args=--output-mode=inject'

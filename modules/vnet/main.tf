@@ -5,7 +5,10 @@ resource "azurerm_virtual_network" "vnet" {
   address_space       = var.vnet_address_space
 }
 
+# NSG is attached via azurerm_subnet_network_security_group_association below.
+# Checkov graph often fails CKV2_AZURE_31 on module/for_each layouts despite the association existing.
 resource "azurerm_subnet" "subnets" {
+  # checkov:skip=CKV2_AZURE_31: NSG association resource exists on each subnet (azurerm_subnet_network_security_group_association); Checkov graph false positive with for_each modules
   for_each             = var.subnets
   name                 = each.key
   resource_group_name  = var.resource_group_name

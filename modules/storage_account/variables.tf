@@ -79,3 +79,15 @@ variable "data_plane_principal_id" {
   type        = string
   default     = null
 }
+
+variable "enable_blob_diagnostic_logs" {
+  description = "When true, create monitor diagnostic settings for blob StorageRead/Write/Delete (log storage costs). Default off for free lab."
+  type        = bool
+  default     = false
+}
+
+variable "diagnostic_log_storage_account_id" {
+  description = "Destination storage account for blob diagnostics. Null = this account. Only used when enable_blob_diagnostic_logs is true."
+  type        = string
+  default     = null
+}

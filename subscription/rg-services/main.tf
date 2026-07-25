@@ -27,6 +27,8 @@ module "sa00services" {
   # Decoupled from CMK: keys off by default (Entra + RBAC). Not the Terraform state account.
   shared_access_key_enabled = local.security_config.enable_shared_access_key
   data_plane_principal_id   = var.global_admin_object_id
+  # Implemented, default off — set enable_blob_diagnostic_logs = true to create diag settings
+  enable_blob_diagnostic_logs = local.security_config.enable_blob_diagnostic_logs
 }
 
 module "keyvault-dmn-tf-test" {

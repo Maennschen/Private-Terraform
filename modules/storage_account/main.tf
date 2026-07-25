@@ -34,16 +34,6 @@ resource "azurerm_storage_account" "this" {
   tags = var.tags
 }
 
-# Data-plane access when account keys are disabled (Entra ID + RBAC).
-# Control-plane (managing the SA resource) still uses subscription/RG Owner|Contributor.
-locals {
-  data_plane_roles = var.shared_access_key_enabled || var.data_plane_principal_id == null ? toset([]) : toset([
-    "Storage Blob Data Contributor",
-    "Storage File Data Privileged Contributor",
-    "Storage Queue Data Contributor",
-  ])
-}
-
 resource "azurerm_role_assignment" "data_plane" {
   for_each = local.data_plane_roles
 
@@ -76,6 +66,7 @@ resource "azurerm_storage_share" "this" {
 }
 
 resource "azurerm_storage_container" "this" {
+  # checkov:skip=CKV2_AZURE_21: Blob logging is implemented as optional azurerm_monitor_diagnostic_setting (enable_blob_diagnostic_logs); default off for free lab. Checkov graph wants Log Analytics Storage Insights (needs account keys + LA workspace cost) — not used here.
   for_each = {
     for container in var.storage_containers : container.name => container
   }
@@ -83,4 +74,24 @@ resource "azurerm_storage_container" "this" {
   name                  = each.value.name
   storage_account_id    = azurerm_storage_account.this.id
   container_access_type = "private"
+}
+
+# Optional blob service diagnostics (StorageRead/Write/Delete). Not created unless enable_blob_diagnostic_logs.
+# Prefer this over Log Analytics Storage Insights for a free lab (no LA workspace; works with shared keys disabled).
+resource "azurerm_monitor_diagnostic_setting" "blob" {
+  count = var.enable_blob_diagnostic_logs ? 1 : 0
+
+  name               = "${var.storage_account_name}-blob-diag"
+  target_resource_id = "${azurerm_storage_account.this.id}/blobServices/default"
+  storage_account_id = coalesce(var.diagnostic_log_storage_account_id, azurerm_storage_account.this.id)
+
+  enabled_log {
+    category = "StorageRead"
+  }
+  enabled_log {
+    category = "StorageWrite"
+  }
+  enabled_log {
+    category = "StorageDelete"
+  }
 }

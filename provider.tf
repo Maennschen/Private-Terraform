@@ -1,5 +1,5 @@
 terraform {
-  required_version = "1.14.3"
+  required_version = ">= 1.15.0"
 
   required_providers {
     azurerm = {
@@ -20,4 +20,6 @@ provider "azurerm" {
   features {}
 
   subscription_id = var.subscription_id
+  # Required when shared_access_key_enabled = false — data plane (queues, shares, blobs) via Entra ID
+  storage_use_azuread = true
 }

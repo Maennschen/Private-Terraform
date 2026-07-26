@@ -14,7 +14,7 @@ module "vnet00-services" {
   vnet_address_space  = ["10.0.0.0/16"]
 
   subnets = {
-    "v00s01servies" = {
+    "v00s01services" = {
       address_prefixes = ["10.0.1.0/24"]
     },
     "v00s02vms" = {

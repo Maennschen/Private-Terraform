@@ -1,4 +1,13 @@
+# Free / learning lab (Azure Free, DE dynamic home IP, no PE budget).
+# Intentional Checkov exclusions — do not "fix" with PE/CMK/GRS just for green checks.
+# Shared keys: prefer false + Entra RBAC (CKV2_AZURE_40). State backend uses a different SA.
 resource "azurerm_storage_account" "this" {
+  # checkov:skip=CKV2_AZURE_33: Free learning lab — private endpoints cost money; not in scope
+  # checkov:skip=CKV2_AZURE_1: Free learning lab — Microsoft-managed encryption sufficient; no CMK
+  # checkov:skip=CKV_AZURE_206: LRS intentional for free tier; GRS/ZRS not worth the cost for a lab
+  # checkov:skip=CKV_AZURE_59: Public network access kept for home access; DE residential IP is dynamic (no stable ip_rules without PE/VPN)
+  # checkov:skip=CKV_AZURE_33: Queue logging is configured via azurerm_storage_account_queue_properties (Checkov often misses sibling resources)
+  # checkov:skip=CKV2_AZURE_41: sas_policy is set below; graph/policy false positive on this resource shape
   name                     = var.storage_account_name
   resource_group_name      = var.resource_group_name
   location                 = var.location
@@ -8,6 +17,7 @@ resource "azurerm_storage_account" "this" {
   public_network_access_enabled   = var.public_network_access_enabled
   allow_nested_items_to_be_public = var.allow_blob_public_access
   shared_access_key_enabled       = var.shared_access_key_enabled
+  default_to_oauth_authentication = var.default_to_oauth_authentication
   min_tls_version                 = "TLS1_2"
 
   blob_properties {
@@ -22,6 +32,14 @@ resource "azurerm_storage_account" "this" {
   }
 
   tags = var.tags
+}
+
+resource "azurerm_role_assignment" "data_plane" {
+  for_each = local.data_plane_roles
+
+  scope                = azurerm_storage_account.this.id
+  role_definition_name = each.value
+  principal_id         = var.data_plane_principal_id
 }
 
 resource "azurerm_storage_account_queue_properties" "this" {
@@ -48,6 +66,7 @@ resource "azurerm_storage_share" "this" {
 }
 
 resource "azurerm_storage_container" "this" {
+  # checkov:skip=CKV2_AZURE_21: Blob logging is implemented as optional azurerm_monitor_diagnostic_setting (enable_blob_diagnostic_logs); default off for free lab. Checkov graph wants Log Analytics Storage Insights (needs account keys + LA workspace cost) — not used here.
   for_each = {
     for container in var.storage_containers : container.name => container
   }
@@ -55,4 +74,24 @@ resource "azurerm_storage_container" "this" {
   name                  = each.value.name
   storage_account_id    = azurerm_storage_account.this.id
   container_access_type = "private"
+}
+
+# Optional blob service diagnostics (StorageRead/Write/Delete). Not created unless enable_blob_diagnostic_logs.
+# Prefer this over Log Analytics Storage Insights for a free lab (no LA workspace; works with shared keys disabled).
+resource "azurerm_monitor_diagnostic_setting" "blob" {
+  count = var.enable_blob_diagnostic_logs ? 1 : 0
+
+  name               = "${var.storage_account_name}-blob-diag"
+  target_resource_id = "${azurerm_storage_account.this.id}/blobServices/default"
+  storage_account_id = coalesce(var.diagnostic_log_storage_account_id, azurerm_storage_account.this.id)
+
+  enabled_log {
+    category = "StorageRead"
+  }
+  enabled_log {
+    category = "StorageWrite"
+  }
+  enabled_log {
+    category = "StorageDelete"
+  }
 }

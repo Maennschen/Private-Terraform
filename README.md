@@ -24,7 +24,8 @@ No resources.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | :------: |
-| <a name="input_subscription_id"></a> [subscription\_id](#input\_subscription\_id) | n/a | `string` | `null` | no |
+| <a name="input_global_admin_object_id"></a> [global\_admin\_object\_id](#input\_global\_admin\_object\_id) | Entra object ID (user or group) for storage data-plane RBAC and Key Vault access. Set via terraform.tfvars (gitignored) or TF\_VAR\_global\_admin\_object\_id. | `string` | n/a | yes |
+| <a name="input_subscription_id"></a> [subscription\_id](#input\_subscription\_id) | Azure subscription ID. Set via terraform.tfvars (gitignored) or TF\_VAR\_subscription\_id / ARM\_SUBSCRIPTION\_ID. | `string` | `null` | no |
 
 ## Outputs
 

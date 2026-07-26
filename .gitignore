@@ -43,3 +43,6 @@ override.tf.json
 terraform.rc
 
 .grok/
+
+# Personal learning backlog (local only)
+ToDo.md

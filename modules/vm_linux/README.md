@@ -29,8 +29,8 @@ No modules.
 | ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_location"></a> [location](#input\_location) | Datacenterlocation der VM | `string` | n/a | yes |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | Name der zugehörigen Resourcen Gruppe | `string` | n/a | yes |
+| <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | Azure Subnet resource ID for the VM NIC (not the VNet ID), e.g. module.vnet.subnet\_ids["v00s02vms"] | `string` | n/a | yes |
 | <a name="input_vmname"></a> [vmname](#input\_vmname) | Name der Virtuellen Maschine | `string` | n/a | yes |
-| <a name="input_vnet"></a> [vnet](#input\_vnet) | Vnet für das Nic | `string` | n/a | yes |
 
 ## Outputs
 

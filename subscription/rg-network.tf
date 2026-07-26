@@ -1,12 +1,12 @@
 module "rg-network" {
-  source = "../../modules/resource_group"
+  source = "../modules/resource_group"
 
   name     = "rg-network"
   location = "West Europe"
 }
 
 module "vnet00-services" {
-  source = "../../modules/vnet"
+  source = "../modules/vnet"
 
   resource_group_name = module.rg-network.name
   location            = module.rg-network.location
@@ -22,7 +22,10 @@ module "vnet00-services" {
     }
   }
 
-  # Implemented, default off — wire storage id from subscription when enabling
-  enable_flow_logs            = var.enable_vnet_flow_logs
-  flow_log_storage_account_id = var.flow_log_storage_account_id
+  # Flow logs path exists in the vnet module; left disabled (no log storage spend).
+  # To enable later:
+  #   enable_flow_logs            = true
+  #   flow_log_storage_account_id = module.sa00services.storage_account_id
+  enable_flow_logs            = false
+  flow_log_storage_account_id = null
 }

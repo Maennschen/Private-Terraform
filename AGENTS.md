@@ -14,7 +14,7 @@ Private Azure learning lab (IaC). Owner uses **Azure Free / no spend budget**. P
 
 | Tool | Notes |
 |------|--------|
-| Terraform | Pinned loosely to installed CLI; `azurerm` `~> 4.0` |
+| Terraform | `required_version = ">= 1.15.0"`; `azurerm` `~> 4.0` |
 | Azure CLI | Source of truth for active subscription |
 | pre-commit | fmt, tflint (config `.tflint.hcl`), terraform-docs |
 | checkov | `scripts/checkov-scan.sh`; results under `open-checkov-results/` |

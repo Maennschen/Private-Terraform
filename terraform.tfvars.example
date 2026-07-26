@@ -1,0 +1,8 @@
+# Copy to terraform.tfvars (gitignored) and fill in.
+# az account show --query id -o tsv
+subscription_id = "00000000-0000-0000-0000-000000000000"
+
+# Entra object ID (user or group) for SA data-plane roles + Key Vault access policy
+# az ad signed-in-user show --query id -o tsv
+# az ad group show -g 'grp-lab-admins' --query id -o tsv
+global_admin_object_id = "00000000-0000-0000-0000-000000000000"

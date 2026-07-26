@@ -22,7 +22,6 @@ Modes:
   full        Full scan with detailed output (default)
   quick       Quick scan, compact output only
   ci          CI mode - exit with code on failures
-  compliance  Run with compliance_mode=true variable
 
 Options:
   --skip-download   Skip downloading external modules
@@ -31,7 +30,7 @@ Options:
 
 Examples:
   $0 quick
-  $0 compliance --json
+  $0 full --json
   $0 ci
 EOF
     exit 0
@@ -41,6 +40,7 @@ EOF
 SKIP_DOWNLOAD=false
 GEN_JSON=false
 GEN_SARIF=false
+CI_MODE=false
 
 while [[ $# -gt 0 ]]; do
     case $1 in
@@ -59,7 +59,7 @@ while [[ $# -gt 0 ]]; do
             GEN_SARIF=true
             shift
             ;;
-        full|quick|ci|compliance)
+        full|quick|ci)
             MODE=$1
             shift
             ;;
@@ -93,11 +93,6 @@ case $MODE in
         echo -e "${YELLOW}CI Mode - Will fail on security issues${NC}"
         CHECKOV_ARGS+=("--quiet" "--compact")
         CI_MODE=true
-        ;;
-    compliance)
-        echo -e "${YELLOW}Compliance Mode - Scanning with security_features enabled${NC}"
-        echo -e "${BLUE}Note: Run 'terraform plan -var=\"compliance_mode=true\"' first${NC}"
-        CHECKOV_ARGS+=("--compact")
         ;;
     full)
         echo -e "${YELLOW}Full Scan Mode${NC}"
